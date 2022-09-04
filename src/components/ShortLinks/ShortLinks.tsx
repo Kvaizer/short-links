@@ -23,6 +23,7 @@ const ShortLinks: React.FC = React.memo(() => {
 
     const links = useAppSelector(state => state.links.links)
     const totalAmountOfLinks = useAppSelector(state => state.links.totalAmountOfLinks)
+    const appStatus = useAppSelector(state => state.app.status)
 
     const [shortSort, setShortSort] = useState<ShortSortType | null>(null)
     const [counterSort, setCounterSort] = useState<CounterSortType | null>(null)
@@ -35,10 +36,8 @@ const ShortLinks: React.FC = React.memo(() => {
 
     useEffect(() => {
          if(shortSort || counterSort || targetSort) {
-             debugger
             dispatch(getLinks({limit: rowsPerPage, offset: rowsPerPage * page, sortConfig: [shortSort, counterSort, targetSort], isMy}))
         } else {
-             debugger
             dispatch(getLinks({limit: rowsPerPage, offset: rowsPerPage * page, isMy}))
         }
     }, [dispatch, rowsPerPage, page, shortSort, counterSort, targetSort, isMy])
@@ -75,7 +74,7 @@ const ShortLinks: React.FC = React.memo(() => {
         localStorage.clear()
         dispatch(setIsLoggedInFalse())
     }
-
+    console.log(appStatus)
     return (
         <div>
             <LinkGenerator/>
@@ -118,6 +117,7 @@ const ShortLinks: React.FC = React.memo(() => {
                                         <Button
                                             className={s.unsortBtn}
                                             variant={'contained'}
+                                            disabled={appStatus !== 'succeeded'}
                                             onClick={unsortHandler}>
                                             UnSort
                                         </Button>
@@ -150,6 +150,7 @@ const ShortLinks: React.FC = React.memo(() => {
                 style={{marginLeft: '20px'}}
                 variant={'contained'}
                 color={'success'}
+                disabled={appStatus !== 'succeeded'}
                 onClick={() => setIsMy(true)}>
                 Show My Links
             </Button>
@@ -157,6 +158,7 @@ const ShortLinks: React.FC = React.memo(() => {
                 style={{marginLeft: '20px'}}
                 variant={'contained'}
                 color={'success'}
+                disabled={appStatus !== 'succeeded'}
                 onClick={() => setIsMy(false)}>
                 Show All Links
             </Button>

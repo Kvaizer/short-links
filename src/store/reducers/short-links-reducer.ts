@@ -18,8 +18,11 @@ export const getLinks = createAsyncThunk<{links: LinkType[]}, GetParamsType, {re
     dispatch(setAppStatus({status: 'inProgress'}))
     try {
         const res = await linksAPI.getLinks(params)
+        dispatch(setAppStatus({status: 'succeeded'}))
         return {links: res.data}
     } catch(e: any) {
+        dispatch(setAppStatus({status: 'failed'}))
+        dispatch(setAppError({error: e.message}))
         return rejectWithValue({error: e.message})
     }
 })
