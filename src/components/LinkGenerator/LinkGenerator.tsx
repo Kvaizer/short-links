@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {clearCurrentShortLink, squeezeLink} from '../../store/reducers/short-links-reducer';
 import s from './LinkGenerator.module.css'
 
-const LinkGenerator = () => {
+const LinkGenerator: React.FC = React.memo(() => {
     const dispatch = useAppDispatch()
 
     const token = useAppSelector(state => state.auth.accessToken)
@@ -62,6 +62,6 @@ const LinkGenerator = () => {
             </div>
         </div>
     );
-};
+})
 
 export default LinkGenerator;

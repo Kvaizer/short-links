@@ -15,6 +15,7 @@ import styles from './Registration.module.css'
 import {ErrorSnackbar} from '../common/ErrorSnackBar';
 import {Navigate, NavLink} from 'react-router-dom';
 import s from './Registration.module.css'
+import LinearProgress from '@mui/material/LinearProgress';
 
 type FormikErrorsType = {
     login?: string
@@ -22,7 +23,7 @@ type FormikErrorsType = {
     repeatPass?: string
 }
 
-const Registration = () => {
+const Registration: React.FC = React.memo(() => {
     const dispatch = useAppDispatch()
 
     const appStatus = useAppSelector((state) => state.app.status)
@@ -70,6 +71,7 @@ const Registration = () => {
 
     return (
         <div className={s.mainBox}>
+            {appStatus === 'inProgress' ? <LinearProgress/> : null}
             <Grid item justifyContent={'center'}>
                 <form onSubmit={formik.handleSubmit}>
                     <Paper className={styles.block}>
@@ -143,6 +145,6 @@ const Registration = () => {
             </Grid>
         </div>
     )
-};
+})
 
 export default Registration;

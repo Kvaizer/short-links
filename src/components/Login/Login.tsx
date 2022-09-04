@@ -16,16 +16,18 @@ import {ErrorSnackbar} from '../common/ErrorSnackBar';
 import styles from './Login.module.css'
 import {NavLink, Navigate} from 'react-router-dom';
 import s from './Login.module.css'
+import LinearProgress from '@mui/material/LinearProgress';
 
 type FormikErrorType = {
     login?: string
     password?: string
 }
 
-const Login = () => {
+const Login: React.FC = React.memo(() => {
     const dispatch = useAppDispatch()
 
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const appStatus = useAppSelector(state => state.app.status)
 
     const [passVisibility, setPassVisibility] = useState(false)
 
@@ -59,6 +61,7 @@ const Login = () => {
 
     return (
         <div className={s.mainBox}>
+            {appStatus === 'inProgress' ? <LinearProgress/> : null}
             <Grid item justifyContent={'center'}>
                 <form onSubmit={formik.handleSubmit}>
                     <Paper className={styles.container}>
@@ -130,6 +133,6 @@ const Login = () => {
             </Grid>
         </div>
     )
-};
+})
 
 export default Login;

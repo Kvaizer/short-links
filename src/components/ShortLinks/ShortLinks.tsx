@@ -70,9 +70,9 @@ const ShortLinks: React.FC = React.memo(() => {
 
 
     const logoutHandler = () => {
-        navigate('/login')
         localStorage.clear()
         dispatch(setIsLoggedInFalse())
+        navigate('/')
     }
     console.log(appStatus)
     return (
