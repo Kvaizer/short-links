@@ -1,7 +1,6 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {authAPI, LoginRequestType} from '../../api/authAPI';
-import { setAppError, setAppStatus } from './app-reducer';
-import exp from 'constants';
+import {setAppError, setAppStatus} from './app-reducer';
 
 type initialStateType = {
     isLoggedIn: boolean
