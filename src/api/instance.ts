@@ -7,7 +7,8 @@ export const login_instance = axios.create({
         return `username=${data.username}&password=${data.password}`
     },
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
     }
 })
 
