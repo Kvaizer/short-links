@@ -16,6 +16,7 @@ import {CounterSortType, ShortSortType, TargetSortType} from '../../api/linksAPI
 import { useNavigate } from 'react-router-dom';
 import s from './ShortLinks.module.css'
 import { setIsLoggedInFalse } from '../../store/reducers/auth-reducer';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const ShortLinks: React.FC = React.memo(() => {
     const dispatch = useAppDispatch()
@@ -69,14 +70,15 @@ const ShortLinks: React.FC = React.memo(() => {
     }, [])
 
 
-    const logoutHandler = () => {
+    const logoutHandler = useCallback(() => {
         localStorage.clear()
         dispatch(setIsLoggedInFalse())
         navigate('/')
-    }
-    console.log(appStatus)
+    }, [navigate])
+
     return (
         <div>
+            {appStatus === 'inProgress' ? <LinearProgress/> : null}
             <LinkGenerator/>
             <Paper className={s.table}>
                 <div >
