@@ -15,6 +15,7 @@ type SortConfigType = [ShortSortType | null, CounterSortType | null, TargetSortT
 export type GetParamsType = {
     offset: number
     limit: number
+    isMy: boolean
     sortConfig?: SortConfigType
 }
 
@@ -31,17 +32,31 @@ export type SqueezeResponseType = {
 
 export const linksAPI = {
     getLinks(params: GetParamsType) {
+        const token = localStorage.getItem('token')
         if (params.sortConfig) {
             const sortQueryArr: Array<string> = []
             params.sortConfig.forEach((item) => {
                 if(item) sortQueryArr.push(`&order=${item}`)
             })
-            return instance.get<LinkType[]>(`statistics?offset=${params.offset}&limit=${params.limit}${sortQueryArr.join('')}`)
+            return instance.get<LinkType[]>(`statistics?offset=${params.offset}&limit=${params.limit}${sortQueryArr.join('')}`, {
+                headers: {
+                    Authorization: !params.isMy ? 'Bearer null' : `Bearer ${token}`
+                }
+            })
         }
-        return instance.get<LinkType[]>(`statistics?offset=${params.offset}&limit=${params.limit}`)
+        return instance.get<LinkType[]>(`statistics?offset=${params.offset}&limit=${params.limit}`, {
+            headers: {
+                Authorization: !params.isMy ? 'Bearer null' : `Bearer ${token}`
+            }
+        })
     },
 
     squeezeLink(params: SqueezeParamsType) {
-        return instance.post<SqueezeResponseType>(`squeeze?link=${params.link}`, null)
+        const token = localStorage.getItem('token')
+        return instance.post<SqueezeResponseType>(`squeeze?link=${params.link}`, null, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     }
 }

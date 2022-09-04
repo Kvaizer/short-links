@@ -30,18 +30,22 @@ const ShortLinks: React.FC = React.memo(() => {
 
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [isMy, setIsMy] = useState(false)
+
 
     useEffect(() => {
          if(shortSort || counterSort || targetSort) {
-            dispatch(getLinks({limit: rowsPerPage, offset: rowsPerPage * page, sortConfig: [shortSort, counterSort, targetSort]}))
+             debugger
+            dispatch(getLinks({limit: rowsPerPage, offset: rowsPerPage * page, sortConfig: [shortSort, counterSort, targetSort], isMy}))
         } else {
-            dispatch(getLinks({limit: rowsPerPage, offset: rowsPerPage * page}))
+             debugger
+            dispatch(getLinks({limit: rowsPerPage, offset: rowsPerPage * page, isMy}))
         }
-    }, [dispatch, rowsPerPage, page, shortSort, counterSort, targetSort])
+    }, [dispatch, rowsPerPage, page, shortSort, counterSort, targetSort, isMy])
 
 
     useEffect(() => {
-        dispatch(getTotalAmountOfLinks({limit: 0, offset: 0}))
+        dispatch(getTotalAmountOfLinks({limit: 0, offset: 0, isMy: false}))
     }, [totalAmountOfLinks])
 
     const sortShortLinksHandler = useCallback(() => {
@@ -69,7 +73,7 @@ const ShortLinks: React.FC = React.memo(() => {
     const logoutHandler = () => {
         navigate('/login')
         localStorage.clear()
-        // dispatch(setIsLoggedInFalse())
+        dispatch(setIsLoggedInFalse())
     }
 
     return (
@@ -141,6 +145,20 @@ const ShortLinks: React.FC = React.memo(() => {
                 color={'secondary'}
                 onClick={logoutHandler}>
                 LogOut
+            </Button>
+            <Button
+                style={{marginLeft: '20px'}}
+                variant={'contained'}
+                color={'success'}
+                onClick={() => setIsMy(true)}>
+                Show My Links
+            </Button>
+            <Button
+                style={{marginLeft: '20px'}}
+                variant={'contained'}
+                color={'success'}
+                onClick={() => setIsMy(false)}>
+                Show All Links
             </Button>
         </div>
     );
