@@ -21,6 +21,8 @@ export const login = createAsyncThunk<{access_token: string}, LoginRequestType, 
         dispatch(setAppStatus({status: 'succeeded'}))
         return {access_token: res.data.access_token}
     } catch(e: any) {
+        debugger
+        console.log({...e})
         dispatch(setAppStatus({status: 'failed'}))
         dispatch(setAppError({error: e.message}))
        return rejectWithValue({error: e.message})
