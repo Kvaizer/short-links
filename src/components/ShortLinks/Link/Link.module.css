@@ -1,0 +1,17 @@
+.shortCell {
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.3s all ease;
+}
+
+.shortCell:hover {
+    background-color: lime;
+}
+
+.targetCell {
+    cursor: pointer;
+}
+
+.targetCell:hover {
+    text-decoration: underline;
+}

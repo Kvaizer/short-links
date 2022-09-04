@@ -1,0 +1,26 @@
+.mainBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.box {
+    padding: 25px 50px;
+    background-image: linear-gradient(45deg, #ecd4d4 30%, #15ae15);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px black;
+}
+
+.block {
+    border: 1px solid white;
+    padding: 20px;
+    width: 500px;
+    height: 530px;
+    border-radius: 20px;
+}
+.boxStyles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

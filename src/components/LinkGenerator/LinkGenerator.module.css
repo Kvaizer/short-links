@@ -1,0 +1,30 @@
+.box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: row nowrap;
+}
+
+.input {
+    width: 60%;
+}
+
+.btn {
+    width: 150px;
+    height: 50px;
+    font-size: 14px;
+}
+
+.shortLink {
+    font-family: 'Arial Black', 'sans-serif';
+    cursor: pointer;
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+    transition: 0.3s all ease;
+}
+
+.shortLink:hover {
+    background-color: rgb(25 118 210);
+    color: white
+}
